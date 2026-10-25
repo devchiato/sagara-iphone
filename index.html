@@ -4,119 +4,96 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Sagara's iPhone — Lock Screen</title>
+<title>Sagara's iPhone</title>
 
 <style>
-:root {
-  color-scheme: dark;
-  --cream: #d5cbc0;
-}
-
 * { box-sizing: border-box; }
 
 html, body {
   margin: 0;
-  min-height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 body {
-  min-height: 100dvh;
-  display: grid;
-  place-items: center;
-  padding: 18px;
-  background: #171615;
-  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+  background: #211b17;
   color: white;
+  font-family: -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+  overflow: hidden;
 }
 
-.phone {
+.lock-screen {
   position: relative;
-  width: min(100%, 390px);
-  height: min(844px, calc(100dvh - 36px));
-  min-height: 620px;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
   overflow: hidden;
   isolation: isolate;
-  border: 6px solid #292827;
-  border-radius: 48px;
-  background: var(--cream);
-  box-shadow: 0 24px 70px #0008;
+  background: #54463b url("wallpaper.png") center / cover no-repeat;
 }
 
-.wallpaper {
-  position: absolute;
-  inset: 0;
-  z-index: -2;
-  background:
-    radial-gradient(ellipse at 50% 68%, #a79a8d 0%, transparent 45%),
-    linear-gradient(
-      180deg,
-      #d9d0c7 0%,
-      #c9bfb4 55%,
-      #8d8178 100%
-    );
-}
-
-.wallpaper::after {
+.lock-screen::before {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: -1;
   background: linear-gradient(
     180deg,
-    #332b2510 0%,
-    transparent 42%,
-    #17141145 100%
+    #160f0c66 0%,
+    #160f0c10 30%,
+    #160f0c12 65%,
+    #160f0c55 100%
   );
 }
 
 /* STATUS BAR */
-.status {
+.status-bar {
   position: absolute;
-  z-index: 3;
-  top: 17px;
-  left: 24px;
-  right: 24px;
+  top: max(env(safe-area-inset-top), 14px);
+  left: 7.5%;
+  right: 7.5%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 14px;
-  font-weight: 650;
-  text-shadow: 0 1px 3px #0002;
+  font-size: 15px;
+  font-weight: 600;
+  text-shadow: 0 1px 5px #0008;
 }
 
 .status-icons {
   display: flex;
-  gap: 6px;
   align-items: center;
+  gap: 7px;
 }
 
 .signal {
   display: flex;
   align-items: end;
   gap: 2px;
-  height: 13px;
+  height: 14px;
 }
 
 .signal i {
-  width: 3px;
-  border-radius: 2px;
-  background: white;
   display: block;
+  width: 4px;
+  background: white;
+  border-radius: 2px;
 }
 
-.signal i:nth-child(1) { height: 4px; }
-.signal i:nth-child(2) { height: 7px; }
-.signal i:nth-child(3) { height: 10px; }
-.signal i:nth-child(4) { height: 13px; }
+.signal i:nth-child(1) { height: 5px; }
+.signal i:nth-child(2) { height: 8px; }
+.signal i:nth-child(3) { height: 11px; }
+.signal i:nth-child(4) { height: 14px; }
 
 .wifi {
-  font-size: 16px;
-  line-height: 1;
+  width: 19px;
+  height: 15px;
 }
 
 .battery {
-  width: 23px;
-  height: 11px;
-  border: 1.4px solid white;
+  width: 25px;
+  height: 12px;
+  border: 1.5px solid white;
   border-radius: 3px;
   padding: 1.5px;
   position: relative;
@@ -125,385 +102,286 @@ body {
 .battery::after {
   content: "";
   position: absolute;
-  right: -3.5px;
-  top: 2.5px;
-  width: 2px;
+  right: -4px;
+  top: 3px;
+  width: 2.5px;
   height: 4px;
   background: white;
-  border-radius: 0 2px 2px 0;
 }
 
-.battery span {
+.battery-fill {
   display: block;
-  width: 75%;
+  width: 76%;
   height: 100%;
   background: white;
-  border-radius: 1px;
 }
 
-/* DYNAMIC ISLAND */
-.island {
+/* CLOCK */
+.clock-area {
   position: absolute;
-  top: 9px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100px;
-  height: 27px;
-  border-radius: 20px;
-  background: #111;
-  z-index: 4;
-}
-
-/* LOCKSCREEN */
-.lock-content {
-  position: absolute;
-  inset: 0;
+  top: calc(env(safe-area-inset-top) + 12vh);
+  left: 0;
+  right: 0;
   text-align: center;
+  text-shadow: 0 2px 12px #0005;
 }
 
 .date {
-  position: absolute;
-  top: 92px;
-  width: 100%;
-  font-size: 16px;
-  font-weight: 550;
-  letter-spacing: .1px;
-  color: #fff;
-  text-shadow: 0 1px 5px #554a41;
+  font-size: clamp(16px, 4.4vw, 23px);
+  font-weight: 450;
 }
 
 .clock {
-  position: absolute;
-  top: 112px;
-  width: 100%;
-  font-size: clamp(76px, 22vw, 100px);
-  line-height: 1.05;
-  font-weight: 250;
-  letter-spacing: -5px;
-  color: #fff;
-  text-shadow: 0 2px 8px #6e6257;
-}
-
-.note {
-  position: absolute;
-  top: 41%;
-  left: 0;
-  right: 0;
-  font-family: "Bradley Hand", "Segoe Print", cursive;
-  font-size: 15px;
-  line-height: 1.65;
-  letter-spacing: 2px;
-  color: #403832;
-  transform: rotate(-3deg);
-}
-
-/* SIMPLE COUPLE WALLPAPER */
-.couple {
-  position: absolute;
-  left: -9%;
-  right: -9%;
-  bottom: -3%;
-  height: 48%;
-  display: flex;
-  align-items: end;
-  justify-content: center;
-  pointer-events: none;
-}
-
-.person {
-  position: absolute;
-  bottom: -7%;
-  border-radius: 48% 48% 10% 10%;
-}
-
-.person.sagara {
-  left: -6%;
-  width: 76%;
-  height: 78%;
-  background: linear-gradient(130deg, #37312e, #211f1e 72%);
-  transform: rotate(-8deg);
-  border-radius: 42% 50% 8% 8%;
-}
-
-.person.sagara::before {
-  content: "";
-  position: absolute;
-  width: 64%;
-  height: 63%;
-  right: 7%;
-  top: -42%;
-  border-radius: 48% 48% 43% 43%;
-  background: radial-gradient(
-    ellipse at 65% 75%,
-    #b99c89 0 25%,
-    #282321 27% 68%,
-    #191716 70%
-  );
-  transform: rotate(10deg);
-}
-
-.person.sagara::after {
-  content: "";
-  position: absolute;
-  right: 6%;
-  top: -8%;
-  width: 50%;
-  height: 20%;
-  background: #292321;
-  border-radius: 50%;
-  transform: rotate(18deg);
-}
-
-.person.areli {
-  right: -6%;
-  width: 69%;
-  height: 54%;
-  background: linear-gradient(135deg, #e5d9cc, #b9a99a);
-  transform: rotate(9deg);
-  border-radius: 50% 45% 6% 6%;
-}
-
-.person.areli::before {
-  content: "";
-  position: absolute;
-  width: 73%;
-  height: 57%;
-  left: -2%;
-  top: -36%;
-  border-radius: 50% 50% 45% 45%;
-  background: radial-gradient(
-    ellipse at 45% 70%,
-    #292321 0 45%,
-    #1b1918 47% 100%
-  );
-  transform: rotate(-22deg);
-}
-
-.person.areli::after {
-  content: "";
-  position: absolute;
-  width: 40%;
-  height: 32%;
-  left: 14%;
-  top: -8%;
-  border-radius: 50%;
-  background: #292321;
-  transform: rotate(-22deg);
+  margin-top: 14px;
+  font-size: clamp(92px, 25vw, 138px);
+  line-height: .98;
+  font-weight: 200;
+  letter-spacing: -6px;
+  font-variant-numeric: tabular-nums;
 }
 
 /* WHATSAPP NOTIFICATION */
 .notification {
   position: absolute;
-  z-index: 2;
-  top: 57%;
-  left: 13px;
-  right: 13px;
-  padding: 12px 14px;
-  border: 1px solid #ffffff75;
-  border-radius: 17px;
-  background: #f5f3efdc;
-  color: #292725;
-  text-align: left;
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  box-shadow: 0 4px 18px #30251c12;
+  top: 38.5%;
+  left: 4.8%;
+  right: 4.8%;
+  display: flex;
+  gap: 13px;
+  align-items: flex-start;
+  padding: 15px 16px;
+  border: 1px solid #ffffff24;
+  border-radius: 27px;
+  background: #23201db8;
+  box-shadow: 0 8px 25px #0002;
+  backdrop-filter: blur(26px);
+  -webkit-backdrop-filter: blur(26px);
 }
 
-.notif-head {
+.wa-icon {
+  width: 43px;
+  height: 43px;
+  flex: 0 0 43px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: #20c967;
+  color: white;
+}
+
+.wa-icon svg {
+  width: 36px;
+  height: 36px;
+}
+
+.notif-copy {
+  flex: 1;
+  min-width: 0;
+}
+
+.notif-top {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 5px;
-}
-
-/* WHATSAPP LOGO */
-.wa {
-  width: 25px;
-  height: 25px;
-  border-radius: 7px;
-  background: #25c366;
-  color: white;
-  display: grid;
-  place-items: center;
-  padding: 2px;
-  flex-shrink: 0;
-}
-
-.wa svg {
-  width: 100%;
-  height: 100%;
-  display: block;
+  margin-bottom: 7px;
 }
 
 .sender {
-  font-size: 12px;
-  font-weight: 700;
+  font-size: 16px;
+  font-weight: 650;
   flex: 1;
 }
 
 .now {
-  font-size: 10px;
-  color: #777;
+  font-size: 13px;
+  color: #e0dcd8;
+  opacity: .8;
 }
 
 .message {
-  font-size: 13px;
+  font-size: 16px;
   line-height: 1.4;
-  padding-left: 33px;
 }
 
-/* BOTTOM SHORTCUTS */
-.bottom-controls {
+/* BOTTOM BUTTONS */
+.bottom {
   position: absolute;
-  z-index: 3;
-  bottom: 35px;
+  bottom: calc(env(safe-area-inset-bottom) + 25px);
   left: 0;
   right: 0;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bottom-row {
+  width: 100%;
+  padding: 0 10.5%;
+  display: flex;
   justify-content: space-between;
-  padding: 0 38px;
 }
 
 .shortcut {
-  width: 48px;
-  height: 48px;
+  width: 66px;
+  height: 66px;
   border-radius: 50%;
   display: grid;
   place-items: center;
-  background: #25221f66;
-  border: 1px solid #ffffff28;
-  font-size: 23px;
+  background: #1c1a1891;
+  color: white;
 }
 
-.homebar {
-  position: absolute;
-  z-index: 5;
-  bottom: 9px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 118px;
-  height: 4px;
-  border-radius: 5px;
-  background: white;
+.shortcut svg {
+  width: 28px;
+  height: 28px;
 }
 
 .hint {
-  position: absolute;
-  bottom: 91px;
-  left: 0;
-  right: 0;
-  font-size: 11px;
-  letter-spacing: .4px;
-  color: #fff;
-  text-shadow: 0 1px 4px #0008;
+  margin-top: 17px;
+  font-size: 15px;
+  color: #ffffffcc;
+  text-shadow: 0 1px 5px #0008;
 }
 
-/* SHORTER SCREENS */
+.home-indicator {
+  margin-top: 40px;
+  width: 34%;
+  max-width: 145px;
+  height: 5px;
+  border-radius: 10px;
+  background: white;
+}
+
 @media (max-height: 700px) {
-  .date { top: 75px; }
-  .clock { top: 95px; }
-  .note { top: 37%; }
-  .couple { height: 43%; }
-  .notification { top: 54%; }
+  .clock-area { top: 75px; }
+  .clock {
+    font-size: clamp(78px, 20vh, 105px);
+    margin-top: 8px;
+  }
+  .notification {
+    top: 39%;
+    padding: 11px 13px;
+  }
+  .shortcut {
+    width: 52px;
+    height: 52px;
+  }
+  .bottom {
+    bottom: calc(env(safe-area-inset-bottom) + 12px);
+  }
+  .hint { margin-top: 10px; }
+  .home-indicator { margin-top: 18px; }
 }
 </style>
 </head>
 
 <body>
-<main class="phone" aria-label="Mockup lock screen iPhone Sagara">
+<main class="lock-screen">
 
-  <div class="wallpaper"></div>
+  <header class="status-bar">
+    <span>Sagara</span>
 
-  <div class="status">
-    <span id="statusTime">19:00</span>
-
-    <div class="status-icons" aria-label="Sinyal penuh, Wi-Fi, baterai">
+    <div class="status-icons">
       <span class="signal">
         <i></i><i></i><i></i><i></i>
       </span>
 
-      <span class="wifi">⌁</span>
+      <svg class="wifi" viewBox="0 0 24 18">
+        <path d="M2 6.5C7.8 1.5 16.2 1.5 22 6.5
+          M5.5 10C9.3 6.8 14.7 6.8 18.5 10
+          M9.2 13.5c1.7-1.4 3.9-1.4 5.6 0"
+          fill="none" stroke="white" stroke-width="2.8"
+          stroke-linecap="round"/>
+      </svg>
 
       <span class="battery">
-        <span></span>
+        <span class="battery-fill"></span>
       </span>
     </div>
-  </div>
+  </header>
 
-  <div class="island"></div>
+  <section class="clock-area">
+    <div class="date" id="date"></div>
+    <div class="clock" id="clock"></div>
+  </section>
 
-  <section class="lock-content">
+  <section class="notification">
+    <span class="wa-icon">
+      <svg viewBox="0 0 32 32" aria-label="WhatsApp">
+        <path fill="currentColor" d="
+          M16 2.2A13.3 13.3 0 0 0 4.5 22.2L2.8 29
+          l7-1.8A13.3 13.3 0 1 0 16 2.2Zm0 24.1
+          a10.8 10.8 0 0 1-5.5-1.5l-.5-.3-4.1 1.1
+          1.1-4-.3-.5A10.8 10.8 0 1 1 16 26.3Zm5.9-8.1
+          c-.3-.2-1.9-.9-2.2-1s-.5-.2-.8.2-.9 1.1-1.1
+          1.3-.4.2-.7.1a8.9 8.9 0 0 1-2.6-1.6
+          9.8 9.8 0 0 1-1.8-2.3c-.2-.3 0-.5.2-.7
+          l.5-.6c.2-.2.3-.4.4-.6s0-.4 0-.6-.8-1.8-1.1-2.5
+          c-.3-.6-.6-.5-.8-.5h-.7c-.2 0-.6.1-.9.4
+          s-1.3 1.3-1.3 3 .1 1.9 1.5 3.6a13.3 13.3 0 0 0
+          5.1 4.6c.7.3 1.3.6 1.8.7.7.2 1.4.2 1.9.1
+          .6-.1 2-.8 2.3-1.5s.3-1.4.2-1.5-.3-.3-.6-.5Z"/>
+      </svg>
+    </span>
 
-    <div class="date" id="date">31 OCTOBER</div>
-    <div class="clock" id="clock">19:00</div>
-
-    <div class="note">
-      my world<br>
-      is better<br>
-      with you,<br>
-      arelian ♡
-    </div>
-
-    <div class="couple" aria-hidden="true">
-      <div class="person sagara"></div>
-      <div class="person areli"></div>
-    </div>
-
-    <div class="notification">
-      <div class="notif-head">
-
-        <span class="wa" aria-label="WhatsApp" title="WhatsApp">
-          <svg viewBox="0 0 32 32" aria-hidden="true">
-            <path fill="currentColor" d="M16 3.2A12.2 12.2 0 0 0 5.5 21.6L4 28l6.5-1.7A12.2 12.2 0 1 0 16 3.2Zm0 22.1a9.9 9.9 0 0 1-5-1.3l-.4-.2-3.8 1 1-3.7-.2-.4A9.9 9.9 0 1 1 16 25.3Zm5.4-7.4c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7.1a8.1 8.1 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.5.1-.6l.5-.6c.2-.2.2-.4.3-.6s0-.4 0-.6-.7-1.7-1-2.3c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4s-1.2 1.2-1.2 2.8 1.2 3.2 1.4 3.4a12.2 12.2 0 0 0 4.7 4.2c.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2.1-1.4s.3-1.3.2-1.4-.2-.2-.5-.4Z"/>
-          </svg>
-        </span>
-
+    <div class="notif-copy">
+      <div class="notif-top">
         <span class="sender">Arelian</span>
         <span class="now">now</span>
       </div>
-
       <div class="message">saga, udah dimana?</div>
     </div>
+  </section>
 
-    <div class="hint">swipe up to open</div>
+  <footer class="bottom">
+    <div class="bottom-row">
+      <div class="shortcut" aria-label="Senter">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M8 2h8v3l-1.2 2v12.5a3 3 0 0 1-6 0V7L8 5V2Z"/>
+        </svg>
+      </div>
 
-    <div class="bottom-controls">
-      <div class="shortcut" aria-label="Senter">▮</div>
-      <div class="shortcut" aria-label="Kamera">◎</div>
+      <div class="shortcut" aria-label="Kamera">
+        <svg viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="1.8">
+          <path d="M4 7h3l1.5-2h7L17 7h3
+            a1.5 1.5 0 0 1 1.5 1.5v9
+            A1.5 1.5 0 0 1 20 19H4
+            a1.5 1.5 0 0 1-1.5-1.5v-9
+            A1.5 1.5 0 0 1 4 7Z"/>
+          <circle cx="12" cy="12.5" r="4"/>
+        </svg>
+      </div>
     </div>
 
-    <div class="homebar"></div>
+    <div class="hint">Swipe up to open</div>
+    <div class="home-indicator"></div>
+  </footer>
 
-  </section>
 </main>
 
 <script>
-(function () {
-  const clock = document.getElementById('clock');
-  const statusTime = document.getElementById('statusTime');
-  const date = document.getElementById('date');
+const clock = document.getElementById("clock");
+const date = document.getElementById("date");
 
-  function updateTime() {
-    const now = new Date();
+function updateClock() {
+  const now = new Date();
 
-    const time = now.toLocaleTimeString('id-ID', {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false
-    }).replace('.', ':');
+  clock.textContent = new Intl.DateTimeFormat("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false
+  }).format(now);
 
-    clock.textContent = time;
-    statusTime.textContent = time;
+  date.textContent = new Intl.DateTimeFormat("en-GB", {
+    weekday: "long",
+    day: "numeric",
+    month: "long"
+  }).format(now);
+}
 
-    date.textContent = now.toLocaleDateString('en-GB', {
-      day: '2-digit',
-      month: 'long'
-    }).toUpperCase();
-  }
-
-  updateTime();
-  setInterval(updateTime, 30000);
-})();
+updateClock();
+setInterval(updateClock, 30000);
 </script>
 
 </body>
