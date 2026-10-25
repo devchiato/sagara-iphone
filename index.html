@@ -272,6 +272,128 @@ body {
   .hint { margin-top: 10px; }
   .home-indicator { margin-top: 18px; }
 }
+
+/* PASSCODE SCREEN */
+.passcode-screen {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 24px;
+  text-align: center;
+  background: rgba(25, 22, 21, .48);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  transition: opacity .25s ease;
+}
+
+.passcode-screen.hidden {
+  display: none;
+}
+
+.passcode-title {
+  font-size: 21px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.passcode-subtitle {
+  font-size: 13px;
+  opacity: .85;
+  margin-bottom: 28px;
+}
+
+.passcode-dots {
+  display: flex;
+  justify-content: center;
+  gap: 17px;
+  margin-bottom: 32px;
+}
+
+.passcode-dot {
+  width: 11px;
+  height: 11px;
+  border: 1px solid white;
+  border-radius: 50%;
+}
+
+.passcode-dot.filled {
+  background: white;
+}
+
+.passcode-keypad {
+  width: min(270px, 85vw);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px 18px;
+}
+
+.passcode-key {
+  width: 68px;
+  height: 68px;
+  margin: auto;
+  border: 1px solid #ffffff20;
+  border-radius: 50%;
+  background: #ffffff20;
+  color: white;
+  font-size: 27px;
+  font-weight: 300;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.passcode-key:active {
+  background: #ffffff55;
+}
+
+.passcode-key small {
+  display: block;
+  font-size: 8px;
+  letter-spacing: 1px;
+}
+
+.passcode-bottom {
+  position: absolute;
+  bottom: max(env(safe-area-inset-bottom), 25px);
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 35px;
+  font-size: 14px;
+}
+
+.passcode-bottom button {
+  border: 0;
+  background: none;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.passcode-error {
+  height: 20px;
+  margin-top: 12px;
+  font-size: 12px;
+}
+
+@media (max-height: 700px) {
+  .passcode-keypad {
+    gap: 9px 14px;
+  }
+
+  .passcode-key {
+    width: 57px;
+    height: 57px;
+  }
+
+  .passcode-dots {
+    margin-bottom: 22px;
+  }
+}
 </style>
 </head>
 
@@ -358,6 +480,51 @@ body {
     <div class="home-indicator"></div>
   </footer>
 
+  <!-- ENTER PASSCODE -->
+  <section class="passcode-screen hidden" id="passcodeScreen">
+
+    <div class="passcode-title">
+      Enter Passcode
+    </div>
+
+    <div class="passcode-subtitle">
+      Swipe up for Face ID or Enter Passcode
+    </div>
+
+    <div class="passcode-dots" id="passcodeDots">
+      <span class="passcode-dot"></span>
+      <span class="passcode-dot"></span>
+      <span class="passcode-dot"></span>
+      <span class="passcode-dot"></span>
+      <span class="passcode-dot"></span>
+      <span class="passcode-dot"></span>
+    </div>
+
+    <div class="passcode-keypad">
+      <button class="passcode-key" data-digit="1">1</button>
+      <button class="passcode-key" data-digit="2">2<small>ABC</small></button>
+      <button class="passcode-key" data-digit="3">3<small>DEF</small></button>
+      <button class="passcode-key" data-digit="4">4<small>GHI</small></button>
+      <button class="passcode-key" data-digit="5">5<small>JKL</small></button>
+      <button class="passcode-key" data-digit="6">6<small>MNO</small></button>
+      <button class="passcode-key" data-digit="7">7<small>PQRS</small></button>
+      <button class="passcode-key" data-digit="8">8<small>TUV</small></button>
+      <button class="passcode-key" data-digit="9">9<small>WXYZ</small></button>
+      <span></span>
+      <button class="passcode-key" data-digit="0">0</button>
+      <button class="passcode-key" id="deleteDigit" aria-label="Hapus angka">⌫</button>
+    </div>
+
+    <div class="passcode-error" id="passcodeError"></div>
+
+    <div class="passcode-bottom">
+      <button id="cancelPasscode">Cancel</button>
+      <button id="useFaceID">Face ID</button>
+    </div>
+
+  </section>
+</main>
+
 </main>
 
 <script>
@@ -383,6 +550,114 @@ function updateClock() {
 updateClock();
 setInterval(updateClock, 30000);
 </script>
+
+<script>
+(() => {
+  const lockScreen = document.querySelector(".lock-screen");
+  const passScreen = document.getElementById("passcodeScreen");
+  const hint = document.querySelector(".hint");
+  const dots = [...document.querySelectorAll(".passcode-dot")];
+  const error = document.getElementById("passcodeError");
+
+  let enteredCode = "";
+  const correctCode = "123456";
+
+  function openPasscode() {
+    passScreen.classList.remove("hidden");
+    enteredCode = "";
+    updateDots();
+    error.textContent = "";
+  }
+
+  function closePasscode() {
+    passScreen.classList.add("hidden");
+    enteredCode = "";
+    updateDots();
+    error.textContent = "";
+  }
+
+  function updateDots() {
+    dots.forEach((dot, index) => {
+      dot.classList.toggle("filled", index < enteredCode.length);
+    });
+  }
+
+  function enterDigit(digit) {
+    if (enteredCode.length >= 6) return;
+
+    enteredCode += digit;
+    updateDots();
+
+    if (enteredCode.length === 6) {
+      if (enteredCode === correctCode) {
+        error.textContent = "Passcode correct!";
+        error.style.color = "#a8f0b6";
+
+        // Nanti hubungkan ke home screen Sagara.
+        setTimeout(() => {
+          passScreen.classList.add("hidden");
+          document.dispatchEvent(
+            new CustomEvent("sagara-unlocked")
+          );
+        }, 350);
+      } else {
+        error.textContent = "Incorrect Passcode. Try again.";
+        error.style.color = "#ffb6b6";
+
+        setTimeout(() => {
+          enteredCode = "";
+          updateDots();
+          error.textContent = "";
+        }, 800);
+      }
+    }
+  }
+
+  document.querySelectorAll("[data-digit]").forEach(button => {
+    button.addEventListener("click", () => {
+      enterDigit(button.dataset.digit);
+    });
+  });
+
+  document.getElementById("deleteDigit")
+    .addEventListener("click", () => {
+      enteredCode = enteredCode.slice(0, -1);
+      updateDots();
+      error.textContent = "";
+    });
+
+  document.getElementById("cancelPasscode")
+    .addEventListener("click", closePasscode);
+
+  document.getElementById("useFaceID")
+    .addEventListener("click", () => {
+      error.style.color = "white";
+      error.textContent = "Face ID is unavailable in this demo.";
+    });
+
+  // Swipe up pada lockscreen untuk membuka passcode.
+  let startY = 0;
+
+  lockScreen.addEventListener("touchstart", event => {
+    if (!passScreen.classList.contains("hidden")) return;
+    startY = event.touches[0].clientY;
+  }, { passive: true });
+
+  lockScreen.addEventListener("touchend", event => {
+    if (!passScreen.classList.contains("hidden")) return;
+
+    const endY = event.changedTouches[0].clientY;
+
+    if (startY - endY > 45) {
+      openPasscode();
+    }
+  }, { passive: true });
+
+  // Klik tulisan hint juga membuka passcode.
+  hint.addEventListener("click", openPasscode);
+})();
+</script>
+</body>
 
 </body>
 </html>
