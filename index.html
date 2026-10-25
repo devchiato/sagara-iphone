@@ -468,32 +468,52 @@ body {
   min-width: 0;
 }
 
+
+/* IOS-STYLE APP ICONS */
 .app-icon {
   width: min(16vw, 62px);
   height: min(16vw, 62px);
-  margin: auto auto 6px;
-  border-radius: 15px;
-  background: #f6f4f2;
-  display: grid;
-  place-items: center;
-  color: #222;
-  font-size: 30px;
-  box-shadow: 0 3px 10px #0002;
+  margin: 0 auto 5px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 2px 7px #0002;
+}
+
+.app-icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 .app-name {
+  display: block;
   font-size: 11px;
-  text-shadow: 0 1px 4px #000;
+  color: #fff;
+  text-align: center;
   white-space: nowrap;
+  text-shadow: 0 1px 4px #000;
 }
 
-.app:nth-child(2) .app-icon { color: #f05c8a; }
-.app:nth-child(3) .app-icon { background: #777; color: white; }
-.app:nth-child(4) .app-icon { color: #df4436; }
-.app:nth-child(6) .app-icon { color: #df338b; }
-.app:nth-child(7) .app-icon { background: #f33850; color: white; }
-.app:nth-child(8) .app-icon { background: #19bc61; color: white; }
-.app:nth-child(10) .app-icon { background: #111; color: white; }
+.dock-icon {
+  width: min(16vw, 62px);
+  height: min(16vw, 62px);
+  margin: auto;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: #fff;
+}
+
+.dock-icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
 
 .home-spacer {
   flex: 1;
@@ -697,18 +717,174 @@ body {
   </div>
   <div class="weather-label">Weather</div>
 
-  <div class="app-grid">
-    <button class="app"><span class="app-icon">📅</span><span class="app-name">Calendar</span></button>
-    <button class="app"><span class="app-icon">🌈</span><span class="app-name">Photos</span></button>
-    <button class="app"><span class="app-icon">📷</span><span class="app-name">Camera</span></button>
-    <button class="app"><span class="app-icon">✉️</span><span class="app-name">Gmail</span></button>
-    <button class="app"><span class="app-icon">🕒</span><span class="app-name">Clock</span></button>
-    <button class="app"><span class="app-icon">◎</span><span class="app-name">Instagram</span></button>
-    <button class="app"><span class="app-icon">♫</span><span class="app-name">Music</span></button>
-    <button class="app"><span class="app-icon">☎</span><span class="app-name">WhatsApp</span></button>
-    <button class="app"><span class="app-icon">☑</span><span class="app-name">Reminders</span></button>
-    <button class="app"><span class="app-icon">𝕏</span><span class="app-name">X</span></button>
-  </div>
+ 
+<div class="app-grid">
+
+  <!-- Calendar -->
+  <button class="app">
+    <span class="app-icon">
+      <svg viewBox="0 0 64 64">
+        <rect width="64" height="64" rx="14" fill="#fff"/>
+        <path d="M0 14Q0 0 14 0H50Q64 0 64 14V19H0Z" fill="#fa453e"/>
+        <text x="32" y="13" font-size="10" fill="white" text-anchor="middle" font-weight="700">SAT</text>
+        <text x="32" y="49" font-size="34" fill="#222" text-anchor="middle">6</text>
+      </svg>
+    </span>
+    <span class="app-name">Calendar</span>
+  </button>
+
+  <!-- Photos -->
+  <button class="app">
+    <span class="app-icon">
+      <svg viewBox="0 0 64 64">
+        <rect width="64" height="64" rx="14" fill="#fff"/>
+        <g transform="translate(32 32)">
+          <ellipse cy="-12" rx="8" ry="14" fill="#ff453a"/>
+          <ellipse transform="rotate(45)" cy="-12" rx="8" ry="14" fill="#ff9f0a"/>
+          <ellipse transform="rotate(90)" cy="-12" rx="8" ry="14" fill="#ffd60a"/>
+          <ellipse transform="rotate(135)" cy="-12" rx="8" ry="14" fill="#30d158"/>
+          <ellipse transform="rotate(180)" cy="-12" rx="8" ry="14" fill="#64d2ff"/>
+          <ellipse transform="rotate(225)" cy="-12" rx="8" ry="14" fill="#0a84ff"/>
+          <ellipse transform="rotate(270)" cy="-12" rx="8" ry="14" fill="#bf5af2"/>
+          <ellipse transform="rotate(315)" cy="-12" rx="8" ry="14" fill="#ff375f"/>
+          <circle r="5" fill="#fff"/>
+        </g>
+      </svg>
+    </span>
+    <span class="app-name">Photos</span>
+  </button>
+
+  <!-- Camera -->
+  <button class="app">
+    <span class="app-icon">
+      <svg viewBox="0 0 64 64">
+        <defs>
+          <linearGradient id="camBg" x2="0" y2="1">
+            <stop stop-color="#e8e8ed"/>
+            <stop offset="1" stop-color="#a8a8ae"/>
+          </linearGradient>
+        </defs>
+        <rect width="64" height="64" rx="14" fill="url(#camBg)"/>
+        <path d="M10 22H22L27 16H40L45 22H54V49H10Z" fill="#33343a"/>
+        <circle cx="32" cy="34" r="12" fill="#777981"/>
+        <circle cx="32" cy="34" r="8" fill="#24252a"/>
+        <circle cx="48" cy="25" r="2" fill="#ffd60a"/>
+      </svg>
+    </span>
+    <span class="app-name">Camera</span>
+  </button>
+
+  <!-- Gmail -->
+  <button class="app">
+    <span class="app-icon">
+      <svg viewBox="0 0 64 64">
+        <rect width="64" height="64" rx="14" fill="#fff"/>
+        <path d="M10 48V18L32 35L54 18V48" fill="none" stroke="#4285f4" stroke-width="8" stroke-linejoin="round"/>
+        <path d="M10 18L32 35L54 18" fill="none" stroke="#ea4335" stroke-width="8" stroke-linejoin="round"/>
+        <path d="M10 25V48" stroke="#34a853" stroke-width="8"/>
+        <path d="M54 25V48" stroke="#fbbc04" stroke-width="8"/>
+      </svg>
+    </span>
+    <span class="app-name">Gmail</span>
+  </button>
+
+  <!-- Clock -->
+  <button class="app">
+    <span class="app-icon">
+      <svg viewBox="0 0 64 64">
+        <rect width="64" height="64" rx="14" fill="#f5f5f7"/>
+        <circle cx="32" cy="32" r="27" fill="#fff" stroke="#222" stroke-width="1.5"/>
+        <g fill="#222" font-size="7" text-anchor="middle">
+          <text x="32" y="12">12</text><text x="49" y="19">2</text>
+          <text x="54" y="34">3</text><text x="48" y="49">5</text>
+          <text x="32" y="57">6</text><text x="16" y="49">7</text>
+          <text x="10" y="34">9</text><text x="16" y="19">10</text>
+        </g>
+        <path d="M32 32L19 24M32 32L43 20" stroke="#222" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M32 32V49" stroke="#ff9f0a" stroke-width="1.5"/>
+        <circle cx="32" cy="32" r="3" fill="#ff9f0a"/>
+      </svg>
+    </span>
+    <span class="app-name">Clock</span>
+  </button>
+
+  <!-- Instagram -->
+  <button class="app">
+    <span class="app-icon">
+      <svg viewBox="0 0 64 64">
+        <defs>
+          <linearGradient id="igBg" x1="0" y1="1" x2="1" y2="0">
+            <stop stop-color="#ffd776"/>
+            <stop offset=".45" stop-color="#ff375f"/>
+            <stop offset="1" stop-color="#833ab4"/>
+          </linearGradient>
+        </defs>
+        <rect width="64" height="64" rx="14" fill="url(#igBg)"/>
+        <rect x="12" y="12" width="40" height="40" rx="12" fill="none" stroke="white" stroke-width="4"/>
+        <circle cx="32" cy="32" r="10" fill="none" stroke="white" stroke-width="4"/>
+        <circle cx="45" cy="19" r="3" fill="white"/>
+      </svg>
+    </span>
+    <span class="app-name">Instagram</span>
+  </button>
+
+  <!-- Apple Music -->
+  <button class="app">
+    <span class="app-icon">
+      <svg viewBox="0 0 64 64">
+        <defs>
+          <linearGradient id="musicBg" x2="0" y2="1">
+            <stop stop-color="#ff375f"/>
+            <stop offset="1" stop-color="#e61645"/>
+          </linearGradient>
+        </defs>
+        <rect width="64" height="64" rx="14" fill="url(#musicBg)"/>
+        <path d="M38 14V42M38 17L51 14V38" fill="none" stroke="white" stroke-width="4" stroke-linecap="round"/>
+        <ellipse cx="31" cy="44" rx="8" ry="6" transform="rotate(-20 31 44)" fill="white"/>
+        <ellipse cx="44" cy="40" rx="7" ry="5" transform="rotate(-20 44 40)" fill="white"/>
+      </svg>
+    </span>
+    <span class="app-name">Music</span>
+  </button>
+
+  <!-- WhatsApp -->
+  <button class="app">
+    <span class="app-icon">
+      <svg viewBox="0 0 64 64">
+        <rect width="64" height="64" rx="14" fill="#25d366"/>
+        <path d="M14 49L17 40A21 21 0 1 1 25 48Z" fill="none" stroke="white" stroke-width="4" stroke-linejoin="round"/>
+        <path d="M24 23Q21 26 26 33T39 40Q43 38 42 35L35 32L32 36Q27 33 26 29L29 26Z" fill="white"/>
+      </svg>
+    </span>
+    <span class="app-name">WhatsApp</span>
+  </button>
+
+  <!-- Reminders -->
+  <button class="app">
+    <span class="app-icon">
+      <svg viewBox="0 0 64 64">
+        <rect width="64" height="64" rx="14" fill="#fff"/>
+        <circle cx="15" cy="18" r="5" fill="none" stroke="#0a84ff" stroke-width="3"/>
+        <circle cx="15" cy="32" r="5" fill="none" stroke="#ff453a" stroke-width="3"/>
+        <circle cx="15" cy="46" r="5" fill="none" stroke="#ff9f0a" stroke-width="3"/>
+        <path d="M26 18H53M26 32H53M26 46H53" stroke="#c6c6ca" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+    </span>
+    <span class="app-name">Reminders</span>
+  </button>
+
+  <!-- X -->
+  <button class="app">
+    <span class="app-icon">
+      <svg viewBox="0 0 64 64">
+        <rect width="64" height="64" rx="14" fill="#000"/>
+        <path d="M15 13H25L49 51H39Z M47 13H53L21 51H15Z" fill="#fff"/>
+      </svg>
+    </span>
+    <span class="app-name">X</span>
+  </button>
+
+</div>
 
   <div class="home-spacer"></div>
   <div class="page-dots">● ○ ○</div>
