@@ -394,6 +394,162 @@ body {
     margin-bottom: 22px;
   }
 }
+
+/* HOME SCREEN */
+.home-screen {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: none;
+  overflow: hidden;
+  padding: max(env(safe-area-inset-top), 18px) 22px 24px;
+  background: #33251e url("wallpaper-saga.jpeg") center / cover no-repeat;
+}
+
+.home-screen.active {
+  display: flex;
+  flex-direction: column;
+}
+
+.home-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+  font-weight: 600;
+  margin: 4px 4px 28px;
+  text-shadow: 0 1px 5px #0008;
+}
+
+.weather-widget {
+  min-height: 155px;
+  padding: 20px;
+  border-radius: 25px;
+  background: #ffffff30;
+  border: 1px solid #ffffff24;
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  box-shadow: 0 8px 25px #0002;
+}
+
+.weather-city {
+  font-size: 19px;
+}
+
+.weather-temp {
+  font-size: 54px;
+  font-weight: 300;
+  line-height: 1.15;
+}
+
+.weather-desc {
+  font-size: 15px;
+}
+
+.weather-label {
+  text-align: center;
+  margin: 8px 0 22px;
+  font-size: 13px;
+}
+
+.app-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 22px 8px;
+}
+
+.app {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: white;
+  font: inherit;
+  text-align: center;
+  min-width: 0;
+}
+
+.app-icon {
+  width: min(16vw, 62px);
+  height: min(16vw, 62px);
+  margin: auto auto 6px;
+  border-radius: 15px;
+  background: #f6f4f2;
+  display: grid;
+  place-items: center;
+  color: #222;
+  font-size: 30px;
+  box-shadow: 0 3px 10px #0002;
+}
+
+.app-name {
+  font-size: 11px;
+  text-shadow: 0 1px 4px #000;
+  white-space: nowrap;
+}
+
+.app:nth-child(2) .app-icon { color: #f05c8a; }
+.app:nth-child(3) .app-icon { background: #777; color: white; }
+.app:nth-child(4) .app-icon { color: #df4436; }
+.app:nth-child(6) .app-icon { color: #df338b; }
+.app:nth-child(7) .app-icon { background: #f33850; color: white; }
+.app:nth-child(8) .app-icon { background: #19bc61; color: white; }
+.app:nth-child(10) .app-icon { background: #111; color: white; }
+
+.home-spacer {
+  flex: 1;
+  min-height: 20px;
+}
+
+.page-dots {
+  text-align: center;
+  letter-spacing: 9px;
+  margin: 12px 0 16px;
+  font-size: 14px;
+}
+
+.home-dock {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  padding: 13px 8px;
+  border-radius: 27px;
+  background: #ffffff30;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+.dock-icon {
+  width: min(16vw, 62px);
+  height: min(16vw, 62px);
+  margin: auto;
+  border-radius: 17px;
+  display: grid;
+  place-items: center;
+  background: #f7f7f7;
+  font-size: 29px;
+}
+
+.dock-icon.phone,
+.dock-icon.messages { background: #19c75a; }
+.dock-icon.music { background: #f23854; color: white; }
+
+.home-bottom-line {
+  width: 35%;
+  max-width: 135px;
+  height: 5px;
+  border-radius: 10px;
+  background: white;
+  margin: 18px auto 0;
+}
+
+@media (max-height: 740px) {
+  .home-status { margin-bottom: 16px; }
+  .weather-widget { min-height: 125px; padding: 14px; }
+  .weather-temp { font-size: 43px; }
+  .weather-label { margin-bottom: 14px; }
+  .app-grid { gap: 13px 6px; }
+  .home-dock { padding: 9px 6px; }
+}
 </style>
 </head>
 
@@ -524,6 +680,49 @@ body {
 
   </section>
 </main>
+  
+<!-- HOME SCREEN SAGARA -->
+<section class="home-screen" id="homeScreen">
+
+  <header class="home-status">
+    <span>Sagara</span>
+    <span>▂ ▄ ▆　◉　▰</span>
+  </header>
+
+  <div class="weather-widget">
+    <div class="weather-city">Jakarta　➤</div>
+    <div class="weather-temp">32°</div>
+    <div class="weather-desc">☁️ Cloudy</div>
+    <div class="weather-desc">H:33°　L:26°</div>
+  </div>
+  <div class="weather-label">Weather</div>
+
+  <div class="app-grid">
+    <button class="app"><span class="app-icon">📅</span><span class="app-name">Calendar</span></button>
+    <button class="app"><span class="app-icon">🌈</span><span class="app-name">Photos</span></button>
+    <button class="app"><span class="app-icon">📷</span><span class="app-name">Camera</span></button>
+    <button class="app"><span class="app-icon">✉️</span><span class="app-name">Gmail</span></button>
+    <button class="app"><span class="app-icon">🕒</span><span class="app-name">Clock</span></button>
+    <button class="app"><span class="app-icon">◎</span><span class="app-name">Instagram</span></button>
+    <button class="app"><span class="app-icon">♫</span><span class="app-name">Music</span></button>
+    <button class="app"><span class="app-icon">☎</span><span class="app-name">WhatsApp</span></button>
+    <button class="app"><span class="app-icon">☑</span><span class="app-name">Reminders</span></button>
+    <button class="app"><span class="app-icon">𝕏</span><span class="app-name">X</span></button>
+  </div>
+
+  <div class="home-spacer"></div>
+  <div class="page-dots">● ○ ○</div>
+
+  <footer class="home-dock">
+    <div class="dock-icon phone">☎</div>
+    <div class="dock-icon">🧭</div>
+    <div class="dock-icon messages">●</div>
+    <div class="dock-icon music">♫</div>
+  </footer>
+
+  <div class="home-bottom-line"></div>
+</section>
+
 
 <script>
 const clock = document.getElementById("clock");
@@ -592,12 +791,13 @@ setInterval(updateClock, 30000);
         error.style.color = "#a8f0b6";
 
         // Nanti hubungkan ke home screen Sagara.
-        setTimeout(() => {
-          passScreen.classList.add("hidden");
-          document.dispatchEvent(
-            new CustomEvent("sagara-unlocked")
-          );
-        }, 350);
+       
+setTimeout(() => {
+  passScreen.classList.add("hidden");
+  lockScreen.style.display = "none";
+  document.getElementById("homeScreen").classList.add("active");
+}, 350);
+
       } else {
         error.textContent = "Incorrect Passcode. Try again.";
         error.style.color = "#ffb6b6";
