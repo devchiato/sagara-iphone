@@ -659,17 +659,19 @@ body {
   .home-dock { padding: 9px 6px; }
 }
 
-/* WHATSAPP SCREEN */
+
+/* ===== WHATSAPP IOS LIGHT ===== */
 .whatsapp-screen {
   position: absolute;
   inset: 0;
   z-index: 30;
   display: none;
   flex-direction: column;
-  color: #111;
-  background: #f7f7f7;
   overflow: hidden;
   padding-top: env(safe-area-inset-top, 0px);
+  color: #111;
+  background: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, Arial, sans-serif;
 }
 
 .whatsapp-screen.active {
@@ -677,56 +679,82 @@ body {
 }
 
 .wa-header {
+  min-height: 56px;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 18px;
-  background: #f7f7f7;
+  gap: 10px;
+  padding: 8px 16px;
+  background: #fff;
 }
 
 .wa-header h2 {
   margin: 0;
   font-size: 27px;
-  font-weight: 700;
+  font-weight: 750;
+  letter-spacing: -.5px;
 }
 
 .wa-header button,
 .wa-back {
   border: 0;
   background: transparent;
-  color: #168b50;
+  color: #087f45;
   font-size: 16px;
   cursor: pointer;
 }
 
+.wa-header .wa-back {
+  font-size: 15px;
+  white-space: nowrap;
+}
+
 .wa-tools {
   display: flex;
-  gap: 18px;
   align-items: center;
-  font-size: 23px;
+  gap: 18px;
+  color: #087f45;
+  font-size: 25px;
 }
 
 .wa-search {
-  margin: 4px 14px 12px;
-  padding: 10px 14px;
-  border-radius: 11px;
-  background: #e8e8e8;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 4px 16px 12px;
+  padding: 0 11px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: #efeff0;
   color: #777;
-  font-size: 15px;
+}
+
+.wa-search input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #111;
+  font: inherit;
+  font-size: 16px;
 }
 
 .wa-section-title {
-  padding: 8px 17px;
-  font-size: 13px;
+  padding: 7px 17px 10px;
   color: #777;
+  font-size: 12px;
   font-weight: 600;
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid #eee;
 }
 
 .wa-chat-list {
-  overflow-y: auto;
   flex: 1;
-  background: white;
+  min-height: 0;
+  overflow-y: auto;
+  background: #fff;
 }
 
 .wa-chat {
@@ -734,23 +762,26 @@ body {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 13px 16px;
+  padding: 11px 16px;
   border: 0;
-  border-bottom: 1px solid #eeeeee;
-  background: white;
+  background: #fff;
   text-align: left;
   color: #111;
   cursor: pointer;
 }
 
+.wa-chat:active {
+  background: #f0f0f0;
+}
+
 .wa-avatar {
-  width: 52px;
-  height: 52px;
-  flex: 0 0 52px;
+  width: 50px;
+  height: 50px;
+  flex: 0 0 50px;
   border-radius: 50%;
   display: grid;
   place-items: center;
-  font-size: 25px;
+  font-size: 23px;
   color: white;
   background: #b5a18d;
 }
@@ -762,10 +793,13 @@ body {
 .wa-chat-info {
   flex: 1;
   min-width: 0;
+  padding: 4px 0 13px;
+  border-bottom: 1px solid #ededed;
 }
 
 .wa-chat-top {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   gap: 8px;
   margin-bottom: 5px;
@@ -774,41 +808,233 @@ body {
 .wa-chat-name {
   font-size: 16px;
   font-weight: 600;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .wa-chat-time {
-  font-size: 12px;
+  flex-shrink: 0;
+  font-size: 11px;
   color: #888;
 }
 
 .wa-chat-preview {
-  font-size: 14px;
-  color: #777;
-  white-space: nowrap;
+  display: block;
   overflow: hidden;
+  white-space: nowrap;
   text-overflow: ellipsis;
+  font-size: 13px;
+  color: #777;
 }
 
 .wa-bottom {
+  min-height: 64px;
+  flex-shrink: 0;
   display: flex;
   justify-content: space-around;
-  padding: 13px 4px calc(env(safe-area-inset-bottom, 0px) + 12px);
-  background: #f7f7f7;
+  align-items: center;
+  padding: 8px 2px calc(env(safe-area-inset-bottom, 0px) + 9px);
+  background: #fafafa;
   border-top: 1px solid #e5e5e5;
-  font-size: 11px;
-  color: #666;
 }
 
-.wa-bottom span {
-  text-align: center;
+.wa-bottom button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  border: 0;
+  background: transparent;
+  color: #888;
+  font-size: 10px;
 }
 
-.wa-bottom b {
-  display: block;
+.wa-bottom button b {
   font-size: 21px;
-  margin-bottom: 4px;
+  line-height: 1;
 }
 
+.wa-bottom button.selected {
+  color: #087f45;
+}
+
+/* LAYAR PERCAKAPAN */
+.wa-conversation {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: #fff;
+}
+
+.wa-conversation[hidden] {
+  display: none !important;
+}
+
+.wa-conversation-header {
+  min-height: 61px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 10px;
+  border-bottom: 1px solid #eee;
+  background: #fff;
+}
+
+.wa-conversation-header .wa-back {
+  font-size: 28px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.wa-back span {
+  font-size: 14px;
+}
+
+.wa-contact-heading {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wa-contact-heading .wa-avatar {
+  width: 37px;
+  height: 37px;
+  flex-basis: 37px;
+  font-size: 17px;
+}
+
+.wa-contact-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 15px;
+  font-weight: 650;
+}
+
+.wa-contact-status {
+  margin-top: 2px;
+  font-size: 11px;
+  color: #777;
+}
+
+.wa-call-actions {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.wa-call-actions button {
+  border: 0;
+  background: transparent;
+  color: #087f45;
+  font-size: 21px;
+}
+
+.wa-messages-area {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 14px 10px 18px;
+  background-color: #efe9df;
+  background-image:
+    radial-gradient(circle at 20% 30%, #ffffff45 0 2px, transparent 3px),
+    radial-gradient(circle at 75% 65%, #d6cdbd55 0 3px, transparent 4px);
+  background-size: 35px 35px, 48px 48px;
+}
+
+.wa-date-pill {
+  width: fit-content;
+  margin: 0 auto 16px;
+  padding: 5px 12px;
+  border-radius: 8px;
+  background: #ffffffdf;
+  color: #777;
+  font-size: 11px;
+}
+
+.wa-message-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.wa-bubble {
+  max-width: 83%;
+  padding: 8px 9px 5px;
+  border-radius: 10px;
+  font-size: 14px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+  box-shadow: 0 1px 1px #00000010;
+}
+
+.wa-bubble.received {
+  align-self: flex-start;
+  background: #fff;
+  border-top-left-radius: 3px;
+}
+
+.wa-bubble.sent {
+  align-self: flex-end;
+  background: #d9fdd3;
+  border-top-right-radius: 3px;
+}
+
+.wa-bubble-time {
+  display: block;
+  margin-top: 3px;
+  color: #777;
+  font-size: 10px;
+  text-align: right;
+}
+
+.wa-compose {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 10px calc(env(safe-area-inset-bottom, 0px) + 12px);
+  border-top: 1px solid #e5e5e5;
+  background: #f8f8f8;
+  flex-shrink: 0;
+}
+
+.wa-compose button {
+  border: 0;
+  background: transparent;
+  color: #087f45;
+  font-size: 25px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.wa-compose input {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 13px;
+  border: 1px solid #ddd;
+  border-radius: 22px;
+  outline: none;
+  background: #fff;
+  color: #111;
+  font-size: 15px;
+}
+
+.wa-compose .wa-send {
+  width: 31px;
+  height: 31px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #087f45;
+  color: white;
+  font-size: 19px;
+}
 </style>
 </head>
 
@@ -1158,105 +1384,135 @@ body {
   <div class="home-bottom-line"></div>
 </section>
 
+
 <!-- WHATSAPP APP -->
 <section class="whatsapp-screen" id="whatsappScreen">
 
-  <header class="wa-header">
-    <button class="wa-back" id="waBack">‹ Kembali</button>
-    <h2>WhatsApp</h2>
-    <div class="wa-tools">
+  <!-- DAFTAR CHAT -->
+  <div id="waListView" style="display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden">
+    <header class="wa-header">
+      <button class="wa-back" id="waBack" type="button">‹ Kembali</button>
+      <h2>Chats</h2>
+      <div class="wa-tools">
+        <button id="waNewChat" type="button" aria-label="New chat">＋</button>
+      </div>
+    </header>
+
+    <div class="wa-search">
       <span>⌕</span>
-      <span>＋</span>
+      <input id="waSearch" type="search" placeholder="Cari" />
     </div>
-  </header>
 
-  <div class="wa-search">⌕  Cari</div>
+    <div class="wa-section-title">CHAT</div>
 
-  <div class="wa-section-title">CHAT</div>
+    <div class="wa-chat-list" id="waChatList">
+      <button class="wa-chat" type="button" data-chat="Arelian">
+        <div class="wa-avatar">A</div>
+        <div class="wa-chat-info">
+          <div class="wa-chat-top">
+            <span class="wa-chat-name">Arelian</span>
+            <span class="wa-chat-time">09.41</span>
+          </div>
+          <span class="wa-chat-preview">saga, udah dimana?</span>
+        </div>
+      </button>
 
-<div class="wa-chat-list">
+      <button class="wa-chat" type="button" data-chat="Rumah 🏡">
+        <div class="wa-avatar group">🏡</div>
+        <div class="wa-chat-info">
+          <div class="wa-chat-top">
+            <span class="wa-chat-name">Rumah 🏡</span>
+            <span class="wa-chat-time">09.25</span>
+          </div>
+          <span class="wa-chat-preview">Mama: Jangan lupa sarapan.</span>
+        </div>
+      </button>
 
-  <!-- 1. Arelian -->
-  <button class="wa-chat" type="button">
-    <div class="wa-avatar">A</div>
-    <div class="wa-chat-info">
-      <div class="wa-chat-top">
-        <span class="wa-chat-name">Arelian</span>
-        <span class="wa-chat-time">Sekarang</span>
-      </div>
-      <div class="wa-chat-preview">saga, udah dimana?</div>
+      <button class="wa-chat" type="button" data-chat="Privasi Negara">
+        <div class="wa-avatar group">🛡️</div>
+        <div class="wa-chat-info">
+          <div class="wa-chat-top">
+            <span class="wa-chat-name">Privasi Negara</span>
+            <span class="wa-chat-time">08.56</span>
+          </div>
+          <span class="wa-chat-preview">Ada pesan baru di grup.</span>
+        </div>
+      </button>
+
+      <button class="wa-chat" type="button" data-chat="Mama">
+        <div class="wa-avatar" style="background:#d78eaa">❤️</div>
+        <div class="wa-chat-info">
+          <div class="wa-chat-top">
+            <span class="wa-chat-name">Mama</span>
+            <span class="wa-chat-time">08.32</span>
+          </div>
+          <span class="wa-chat-preview">Jangan telat makan, Nak ❤️</span>
+        </div>
+      </button>
+
+      <button class="wa-chat" type="button" data-chat="Samudra">
+        <div class="wa-avatar" style="background:#5486b5">S</div>
+        <div class="wa-chat-info">
+          <div class="wa-chat-top">
+            <span class="wa-chat-name">Samudra</span>
+            <span class="wa-chat-time">Kemarin</span>
+          </div>
+          <span class="wa-chat-preview">Besok jadi berangkat?</span>
+        </div>
+      </button>
+
+      <button class="wa-chat" type="button" data-chat="Bang Anton">
+        <div class="wa-avatar" style="background:#8c806d">A</div>
+        <div class="wa-chat-info">
+          <div class="wa-chat-top">
+            <span class="wa-chat-name">Bang Anton</span>
+            <span class="wa-chat-time">Kemarin</span>
+          </div>
+          <span class="wa-chat-preview">Siap, saya urus.</span>
+        </div>
+      </button>
     </div>
-  </button>
 
-  <!-- 2. Rumah -->
-  <button class="wa-chat" type="button">
-    <div class="wa-avatar group">🏡</div>
-    <div class="wa-chat-info">
-      <div class="wa-chat-top">
-        <span class="wa-chat-name">Rumah 🏡</span>
-        <span class="wa-chat-time">Kemarin</span>
-      </div>
-      <div class="wa-chat-preview">Grup · Keluarga</div>
-    </div>
-  </button>
-
-  <!-- 3. Privasi Negara -->
-  <button class="wa-chat" type="button">
-    <div class="wa-avatar group">🛡️</div>
-    <div class="wa-chat-info">
-      <div class="wa-chat-top">
-        <span class="wa-chat-name">Privasi Negara</span>
-        <span class="wa-chat-time">Kemarin</span>
-      </div>
-      <div class="wa-chat-preview">Grup · Privasi Negara</div>
-    </div>
-  </button>
-
-  <!-- 4. Mama -->
-  <button class="wa-chat" type="button">
-    <div class="wa-avatar" style="background:#d78eaa">❤️</div>
-    <div class="wa-chat-info">
-      <div class="wa-chat-top">
-        <span class="wa-chat-name">Mama</span>
-        <span class="wa-chat-time">Kemarin</span>
-      </div>
-      <div class="wa-chat-preview">Nanti kabarin Mama ya</div>
-    </div>
-  </button>
-
-  <!-- 5. Samudra -->
-  <button class="wa-chat" type="button">
-    <div class="wa-avatar" style="background:#5486b5">S</div>
-    <div class="wa-chat-info">
-      <div class="wa-chat-top">
-        <span class="wa-chat-name">Samudra</span>
-        <span class="wa-chat-time">Senin</span>
-      </div>
-      <div class="wa-chat-preview">Oke, gue tunggu.</div>
-    </div>
-  </button>
-
-  <!-- 6. Bang Anton -->
-  <button class="wa-chat" type="button">
-    <div class="wa-avatar" style="background:#8c806d">A</div>
-    <div class="wa-chat-info">
-      <div class="wa-chat-top">
-        <span class="wa-chat-name">Bang Anton</span>
-        <span class="wa-chat-time">Minggu</span>
-      </div>
-      <div class="wa-chat-preview">Siap, Bang.</div>
-    </div>
-  </button>
-
+    <footer class="wa-bottom">
+      <button type="button"><b>◷</b>Terbaru</button>
+      <button type="button"><b>☎</b>Panggilan</button>
+      <button type="button"><b>◎</b>Pembaruan</button>
+      <button type="button"><b>♙</b>Komunitas</button>
+      <button type="button" class="selected"><b>▤</b>Chat</button>
+    </footer>
   </div>
 
-  <footer class="wa-bottom">
-    <span><b>◷</b>Terbaru</span>
-    <span><b>▣</b>Panggilan</span>
-    <span><b>◎</b>Pembaruan</span>
-    <span><b>♙</b>Komunitas</span>
-    <span><b>⚙</b>Setelan</span>
-  </footer>
+  <!-- HALAMAN PERCAKAPAN -->
+  <div class="wa-conversation" id="waConversation" hidden>
+    <header class="wa-conversation-header">
+      <button class="wa-back" id="waChatBack" type="button">‹ <span>Chats</span></button>
+
+      <div class="wa-contact-heading">
+        <div class="wa-avatar" id="waContactAvatar">A</div>
+        <div style="min-width:0">
+          <div class="wa-contact-name" id="waContactName">Arelian</div>
+          <div class="wa-contact-status" id="waContactStatus">online</div>
+        </div>
+      </div>
+
+      <div class="wa-call-actions">
+        <button type="button" aria-label="Video call">▣</button>
+        <button type="button" aria-label="Voice call">☎</button>
+      </div>
+    </header>
+
+    <div class="wa-messages-area" id="waMessagesArea">
+      <div class="wa-date-pill">Hari ini</div>
+      <div class="wa-message-stack" id="waMessages"></div>
+    </div>
+
+    <form class="wa-compose" id="waCompose">
+      <button type="button" aria-label="Tambah">＋</button>
+      <input id="waMessageInput" type="text" placeholder="Pesan" autocomplete="off" />
+      <button type="button" aria-label="Kamera">▧</button>
+      <button class="wa-send" type="submit" aria-label="Kirim">↑</button>
+    </form>
+  </div>
 
 </section>
 
@@ -1393,16 +1649,199 @@ setTimeout(() => {
 </script>
   
 <script>
+
 const whatsappApp = document.getElementById("whatsappApp");
 const whatsappScreen = document.getElementById("whatsappScreen");
 const waBack = document.getElementById("waBack");
+const waListView = document.getElementById("waListView");
+const waConversation = document.getElementById("waConversation");
+const waChatBack = document.getElementById("waChatBack");
+const waChatList = document.getElementById("waChatList");
+const waSearch = document.getElementById("waSearch");
+const waContactName = document.getElementById("waContactName");
+const waContactAvatar = document.getElementById("waContactAvatar");
+const waContactStatus = document.getElementById("waContactStatus");
+const waMessages = document.getElementById("waMessages");
+const waMessagesArea = document.getElementById("waMessagesArea");
+const waCompose = document.getElementById("waCompose");
+const waMessageInput = document.getElementById("waMessageInput");
+
+const waChatData = {
+  "Arelian": {
+    avatar: "A",
+    color: "#d9eee1",
+    status: "online",
+    messages: [
+      ["received", "Saga, udah dimana?"],
+      ["sent", "Lagi di rumah. Kenapa, Rel?"],
+      ["received", "Nanti kabarin aku, ya."],
+      ["sent", "Iya, nanti aku kabarin."]
+    ]
+  },
+  "Rumah 🏡": {
+    avatar: "🏡",
+    color: "#6aa98a",
+    status: "grup · 4 anggota",
+    messages: [
+      ["received", "Mama: Jangan lupa sarapan."],
+      ["sent", "Iya, Ma. Sagara sarapan nanti."],
+      ["received", "Papa: Hati-hati kalau pergi."],
+      ["sent", "Siap, Pa."]
+    ]
+  },
+  "Privasi Negara": {
+    avatar: "🛡️",
+    color: "#6aa98a",
+    status: "grup · 8 anggota",
+    messages: [
+      ["received", "Rapat dimulai pukul sepuluh."],
+      ["sent", "Baik, saya akan hadir."],
+      ["received", "Mohon cek informasi terbaru di grup."],
+      ["sent", "Informasi sudah saya terima."]
+    ]
+  },
+  "Mama": {
+    avatar: "❤️",
+    color: "#d78eaa",
+    status: "terakhir dilihat baru-baru ini",
+    messages: [
+      ["received", "Sagara, sudah bangun?"],
+      ["sent", "Sudah, Ma ❤️"],
+      ["received", "Jangan telat makan, Nak."],
+      ["sent", "Iyaaa, Mama."]
+    ]
+  },
+  "Samudra": {
+    avatar: "S",
+    color: "#5486b5",
+    status: "terakhir dilihat baru-baru ini",
+    messages: [
+      ["received", "Besok jadi berangkat?"],
+      ["sent", "Jadi. Nanti aku kabarin jamnya."],
+      ["received", "Oke, gue tunggu."],
+      ["sent", "Siap."]
+    ]
+  },
+  "Bang Anton": {
+    avatar: "A",
+    color: "#8c806d",
+    status: "terakhir dilihat baru-baru ini",
+    messages: [
+      ["sent", "Bang, untuk besok sudah siap?"],
+      ["received", "Siap, saya urus."],
+      ["sent", "Oke, terima kasih, Bang."],
+      ["received", "Sama-sama."]
+    ]
+  }
+};
+
+let waCurrentChat = null;
+
+function waEscapeText(value) {
+  const span = document.createElement("span");
+  span.textContent = value;
+  return span.innerHTML;
+}
+
+function waRenderMessages() {
+  if (!waCurrentChat) return;
+
+  const chat = waChatData[waCurrentChat];
+
+  waMessages.innerHTML = chat.messages.map(([direction, text, time]) => `
+    <div class="wa-bubble ${direction}">
+      ${waEscapeText(text)}
+      <span class="wa-bubble-time">
+        ${time || "09.41"}${direction === "sent" ? " ✓✓" : ""}
+      </span>
+    </div>
+  `).join("");
+
+  waMessagesArea.scrollTop = waMessagesArea.scrollHeight;
+
+  const matchingButton = [...waChatList.querySelectorAll("[data-chat]")]
+    .find(button => button.dataset.chat === waCurrentChat);
+
+  if (matchingButton && chat.messages.length) {
+    const lastMessage = chat.messages[chat.messages.length - 1][1];
+    const preview = matchingButton.querySelector(".wa-chat-preview");
+    if (preview) preview.textContent = lastMessage;
+  }
+}
+
+function waOpenConversation(name) {
+  if (!waChatData[name]) return;
+
+  waCurrentChat = name;
+  const chat = waChatData[name];
+
+  waContactName.textContent = name;
+  waContactAvatar.textContent = chat.avatar;
+  waContactAvatar.style.background = chat.color;
+  waContactStatus.textContent = chat.status;
+
+  waListView.style.display = "none";
+  waConversation.hidden = false;
+
+  waRenderMessages();
+}
+
+function waShowChatList() {
+  waConversation.hidden = true;
+  waListView.style.display = "flex";
+  waCurrentChat = null;
+}
+
+function waFilterChats() {
+  const query = waSearch.value.toLowerCase().trim();
+
+  waChatList.querySelectorAll("[data-chat]").forEach(button => {
+    const name = button.dataset.chat.toLowerCase();
+    const preview = button.querySelector(".wa-chat-preview")
+      .textContent.toLowerCase();
+
+    button.style.display =
+      name.includes(query) || preview.includes(query) ? "flex" : "none";
+  });
+}
+
+waChatList.addEventListener("click", event => {
+  const button = event.target.closest("[data-chat]");
+  if (button) waOpenConversation(button.dataset.chat);
+});
+
+waChatBack.addEventListener("click", waShowChatList);
+
+waSearch.addEventListener("input", waFilterChats);
+
+waCompose.addEventListener("submit", event => {
+  event.preventDefault();
+
+  const message = waMessageInput.value.trim();
+  if (!message || !waCurrentChat) return;
+
+  const time = new Date().toLocaleTimeString("id-ID", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false
+  });
+
+  waChatData[waCurrentChat].messages.push(["sent", message, time]);
+
+  waMessageInput.value = "";
+  waRenderMessages();
+});
 
 whatsappApp.addEventListener("click", () => {
   whatsappScreen.classList.add("active");
+  waShowChatList();
+  waSearch.value = "";
+  waFilterChats();
 });
 
 waBack.addEventListener("click", () => {
   whatsappScreen.classList.remove("active");
+  waShowChatList();
 });
 </script>
 </body>
