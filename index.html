@@ -411,14 +411,74 @@ body {
   flex-direction: column;
 }
 
+
 .home-status {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 4px 7.5% 28px;
   font-size: 15px;
   font-weight: 600;
-  margin: 4px 4px 28px;
   text-shadow: 0 1px 5px #0008;
+  min-height: 18px;
+}
+
+.home-status .status-icons {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.home-status .signal {
+  display: flex;
+  align-items: end;
+  gap: 2px;
+  height: 14px;
+}
+
+.home-status .signal i {
+  display: block;
+  width: 4px;
+  background: white;
+  border-radius: 2px;
+}
+
+.home-status .signal i:nth-child(1) { height: 5px; }
+.home-status .signal i:nth-child(2) { height: 8px; }
+.home-status .signal i:nth-child(3) { height: 11px; }
+.home-status .signal i:nth-child(4) { height: 14px; }
+
+.home-status .wifi {
+  width: 19px;
+  height: 15px;
+}
+
+.home-status .battery {
+  width: 25px;
+  height: 12px;
+  border: 1.5px solid white;
+  border-radius: 3px;
+  padding: 1.5px;
+  position: relative;
+}
+
+.home-status .battery::after {
+  content: "";
+  position: absolute;
+  right: -4px;
+  top: 3px;
+  width: 2.5px;
+  height: 4px;
+  background: white;
+}
+
+.home-status .battery-fill {
+  display: block;
+  width: 76%;
+  height: 100%;
+  background: white;
+}
+
 }
 
 .weather-widget {
@@ -704,10 +764,30 @@ body {
 <!-- HOME SCREEN SAGARA -->
 <section class="home-screen" id="homeScreen">
 
-  <header class="home-status">
-    <span>Sagara</span>
-    <span>▂ ▄ ▆　◉　▰</span>
-  </header>
+  
+<header class="home-status">
+  <span>Sagara</span>
+
+  <div class="status-icons">
+    <span class="signal">
+      <i></i><i></i><i></i><i></i>
+    </span>
+
+    <svg class="wifi" viewBox="0 0 24 18">
+      <path d="M2 6.5C7.8 1.5 16.2 1.5 22 6.5
+        M5.5 10C9.3 6.8 14.7 6.8 18.5 10
+        M9.2 13.5c1.7-1.4 3.9-1.4 5.6 0"
+        fill="none"
+        stroke="white"
+        stroke-width="2.8"
+        stroke-linecap="round"/>
+    </svg>
+
+    <span class="battery">
+      <span class="battery-fill"></span>
+    </span>
+  </div>
+</header>
 
   <div class="weather-widget">
     <div class="weather-city">Jakarta　➤</div>
