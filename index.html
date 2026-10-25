@@ -1,0 +1,620 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>THE LAST HALLOWEEN</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #111;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+  color: white;
+}
+
+.phone {
+  width: 100%;
+  max-width: 430px;
+  height: 100dvh;
+  min-height: 650px;
+  margin: auto;
+  position: relative;
+  overflow: hidden;
+  background: #222;
+}
+
+.wallpaper {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(#0002, #0001 45%, #0005),
+    url("haechan-wallpaper.jpg") center / cover;
+}
+
+.status {
+  position: absolute;
+  top: 13px;
+  left: 28px;
+  right: 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+  font-weight: 600;
+  z-index: 5;
+}
+
+.status-icons {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.signal-icon {
+  display: block;
+  width: 17px;
+  height: 14px;
+}
+
+.network {
+  font-size: 12px;
+  font-weight: 700;
+  margin-right: 2px;
+}
+
+.battery {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 25px;
+  height: 12px;
+  padding: 1.5px;
+  margin-left: 1px;
+  border: 1.5px solid white;
+  border-radius: 3.5px;
+  box-sizing: border-box;
+}
+
+.battery-level {
+  display: block;
+  width: 75%;
+  height: 100%;
+  background: white;
+  border-radius: 1px;
+}
+
+.battery-cap {
+  position: absolute;
+  right: -3.5px;
+  top: 3px;
+  width: 2px;
+  height: 4px;
+  background: white;
+  border-radius: 0 1px 1px 0;
+}
+
+.island {
+  position: absolute;
+  z-index: 6;
+  width: 105px;
+  height: 30px;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #050505;
+  border-radius: 20px;
+}
+
+.lock {
+  position: absolute;
+  inset: 0;
+  text-align: center;
+}
+
+.date {
+  position: absolute;
+  top: 87px;
+  width: 100%;
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.clock {
+  position: absolute;
+  top: 108px;
+  width: 100%;
+  font-size: 88px;
+  line-height: 1.1;
+  font-weight: 200;
+  letter-spacing: -5px;
+}
+
+.locked {
+  position: absolute;
+  top: 199px;
+  width: 100%;
+  font-size: 10px;
+  letter-spacing: 2px;
+  opacity: .8;
+}
+
+.notifications {
+  position: absolute;
+  top: 255px;
+  left: 15px;
+  right: 15px;
+  display: grid;
+  gap: 8px;
+}
+
+.notification {
+  padding: 12px 14px;
+  border-radius: 20px;
+  background: rgba(245,245,250,.78);
+  color: #222;
+  text-align: left;
+  border: 1px solid #ffffff55;
+  backdrop-filter: blur(25px) saturate(160%);
+  -webkit-backdrop-filter: blur(25px) saturate(160%);
+}
+
+.notif-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 5px;
+}
+
+.msg-icon {
+  width: 25px;
+  height: 25px;
+  border-radius: 7px;
+  background: #32c759;
+  color: white;
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+}
+
+.sender {
+  font-size: 12px;
+  font-weight: 650;
+  flex: 1;
+}
+
+.now {
+  font-size: 10px;
+  color: #777;
+}
+
+.message {
+  padding-left: 33px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.slide {
+  position: absolute;
+  bottom: 12px;
+  width: 100%;
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  text-shadow: 0 1px 5px #000;
+}
+
+.indicator {
+  width: 135px;
+  height: 5px;
+  background: white;
+  border-radius: 10px;
+}
+
+.screen {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+}
+
+.hidden { display: none !important; }
+
+.passcode {
+  background: rgba(30,30,35,.55);
+  backdrop-filter: blur(35px);
+  -webkit-backdrop-filter: blur(35px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 25px;
+}
+
+.pass-title {
+  font-size: 21px;
+  font-weight: 600;
+}
+
+.pass-sub {
+  font-size: 13px;
+  opacity: .75;
+  margin-bottom: 25px;
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin: 25px 0;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border: 1px solid white;
+  border-radius: 50%;
+}
+
+.dot.filled { background: white; }
+
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  max-width: 250px;
+  margin: auto;
+}
+
+.key {
+  width: 62px;
+  height: 62px;
+  border: 0;
+  border-radius: 50%;
+  background: #ffffff25;
+  color: white;
+  font-size: 26px;
+  font-weight: 300;
+  margin: auto;
+  cursor: pointer;
+}
+
+.key:active { background: #ffffff55; }
+
+.key small {
+  display: block;
+  font-size: 8px;
+  letter-spacing: 1px;
+}
+
+.error {
+  height: 20px;
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+.cancel {
+  background: none;
+  border: none;
+  color: white;
+  margin-top: 8px;
+  cursor: pointer;
+}
+
+/* HOME SCREEN DAN WIDGET */
+.home {
+  padding: 30px 20px 120px;
+  background: linear-gradient(#0001,#0002);
+}
+
+.home-widgets {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 25px 0 28px;
+}
+
+.weather-widget, .clock-widget {
+  min-height: 145px;
+  border-radius: 23px;
+  padding: 15px 13px;
+  background: rgba(10,45,105,.62);
+  border: 1px solid #ffffff38;
+  box-shadow: inset 0 1px 1px #ffffff38;
+  backdrop-filter: blur(22px) saturate(150%);
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+}
+
+.widget-city { font-size: 13px; }
+
+.widget-temp {
+  font-size: 34px;
+  font-weight: 300;
+  white-space: nowrap;
+  letter-spacing: -1px;
+}
+
+.widget-temp span { font-size: 20px; }
+
+.widget-condition, .widget-range {
+  font-size: 10px;
+  margin-top: 5px;
+}
+
+.widget-range { opacity: .85; }
+
+.clock-widget {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.widget-time {
+  font-size: 30px;
+  font-weight: 650;
+  letter-spacing: -1px;
+}
+
+.widget-day {
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 9px;
+}
+
+/* GRID APLIKASI */
+.apps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 19px 8px;
+}
+
+.app {
+  border: 0;
+  padding: 0;
+  background: none;
+  color: white;
+  display: grid;
+  justify-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+/* IKON STYLE IOS */
+.icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 17px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 3px 7px #0003, inset 0 1px 1px #ffffff70;
+  background: #f7f7fa;
+}
+
+.icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.icon.messages, .icon.phone-icon {
+  background: linear-gradient(155deg,#65ed73,#08b928 70%,#079d25);
+}
+
+.icon.notes {
+  background: linear-gradient(#ffd84b 0 27%,#fff 27%);
+}
+
+.icon.reminders, .icon.gmail, .icon.photos {
+  background: #fff;
+}
+
+.icon.music {
+  background: linear-gradient(145deg,#ff657d,#ed174d);
+}
+
+.icon.camera {
+  background: linear-gradient(145deg,#f2f2f2,#b7bbc1);
+}
+
+.icon.weather {
+  background: linear-gradient(145deg,#52c8ff,#1978e8);
+}
+
+.icon.instagram {
+  background: linear-gradient(135deg,#ffd76a,#fa3a75 48%,#7638d7);
+}
+
+.icon.safari {
+  background: linear-gradient(145deg,#6be2ff,#0879df);
+}
+
+.app-name {
+  font-size: 10px;
+  text-shadow: 0 1px 4px #000;
+}
+
+/* DOCK */
+.dock {
+  position: absolute;
+  bottom: 25px;
+  left: 13px;
+  right: 13px;
+  height: 88px;
+  border-radius: 28px;
+  background: #ffffff35;
+  border: 1px solid #ffffff30;
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  align-items: center;
+}
+
+.dock .icon {
+  width: 51px;
+  height: 51px;
+}
+
+.dock .app-name { display: none; }
+
+/* HALAMAN APLIKASI */
+.app-page {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  background: #f2f2f7;
+  color: #111;
+  padding: 55px 20px 30px;
+}
+
+.app-page.dark {
+  background: #000;
+  color: white;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.app-header h2 { font-size: 22px; }
+
+.back {
+  border: 0;
+  background: none;
+  color: #1687ff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.chat {
+  padding: 13px 0;
+  border-bottom: 1px solid #8884;
+  cursor: pointer;
+}
+
+.preview {
+  font-size: 13px;
+  opacity: .65;
+  margin-top: 5px;
+}
+
+.bubble {
+  background: #e5e5ea;
+  color: #111;
+  padding: 10px 14px;
+  border-radius: 18px;
+  margin: 10px 0;
+  width: fit-content;
+  max-width: 85%;
+  font-size: 14px;
+}
+
+.mine {
+  background: #0a84ff;
+  color: white;
+  margin-left: auto;
+}
+
+@media (min-width: 600px) {
+  body { padding: 20px; }
+
+  .phone {
+    height: min(900px, calc(100dvh - 40px));
+    border: 7px solid #333;
+    border-radius: 45px;
+  }
+}
+</style>
+</head>
+
+<body>
+<main class="phone">
+  <div class="wallpaper"></div>
+
+  <div class="status">
+    <span class="status-time">19:00</span>
+
+    <div class="status-icons">
+      <svg class="signal-icon" viewBox="0 0 18 14" aria-label="Sinyal">
+        <path d="M1 13V10H4V13Z" fill="currentColor"/>
+        <path d="M5 13V7H8V13Z" fill="currentColor"/>
+        <path d="M9 13V4H12V13Z" fill="currentColor"/>
+        <path d="M13 13V1H16V13Z" fill="currentColor"/>
+      </svg>
+
+      <span class="network">5G</span>
+
+      <div class="battery" aria-label="Baterai 75 persen">
+        <span class="battery-level"></span>
+        <span class="battery-cap"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="island"></div>
+
+  <!-- LOCK SCREEN -->
+  <section class="screen lock" id="lock">
+    <div class="date">31 OCTOBER</div>
+    <div class="clock">19:00</div>
+    <div class="locked">LOCKED</div>
+
+    <div class="notifications">
+      <div class="notification">
+        <div class="notif-head">
+          <span class="whatsapp-icon">●</span>
+          <span class="sender">Arelian</span>
+          <span class="now">now</span>
+        </div>
+        <div class="message">saga, udah dimana?</div>
+      </div>
+      <div class="slide" id="slide">
+      <span>⌃</span>
+      <span>slide up to open</span>
+      <div class="indicator"></div>
+    </div>
+  </section>
+
+  <!-- PASSCODE -->
+  <section class="Enter Passcode" id="pass">
+    <div>
+      <div style="font-size:30px">🔒</div>
+      <div class="pass-title">Enter Passcode</div>
+      <div class="pass-sub">iPhone locked</div>
+
+      <div class="dots">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+
+      <div class="keypad">
+        <button class="key" data-num="1">1<small></small></button>
+        <button class="key" data-num="2">2<small>ABC</small></button>
+        <button class="key" data-num="3">3<small>DEF</small></button>
+        <button class="key" data-num="4">4<small>GHI</small></button>
+        <button class="key" data-num="5">5<small>JKL</small></button>
+        <button class="key" data-num="6">6<small>MNO</small></button>
+        <button class="key" data-num="7">7<small>PQRS</small></button>
+        <button class="key" data-num="8">8<small>TUV</small></button>
+        <button class="key" data-num="9">9<small>WXYZ</small></button>
+        <span></span>
+        <button class="key" data-num="0">0<small></small></button>
+        <span></span>
+      </div>
+
+      <div class="error" id="error"></div>
+      <button class="cancel" id="cancel">Cancel</button>
+    </div>
+  </section>
